@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+ <html lang="es">
+ <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Carta para mi vida</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Dancing Script', cursive; /* Nueva tipografía */
+    }
+
+    body, html {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .escenario1, .escenario2 {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .escenario1 {
+      background: linear-gradient(to bottom right, #ffe4e1, #ffe4e1); /* Rosado crema */
+    }
+
+    .escenario1 h1 {
+      font-size: 3rem;
+      color: #e91e63;
+      margin-bottom: 20px; /* Reducido el margen */
+    }
+
+    .heart-button-container {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .heart-button {
+      background-image: url('https://media.discordapp.net/attachments/1059391734649462815/1368696523205906432/jfif_1.png?ex=68192978&is=6817d7f8&hm=825aa0fc25d1ed4114f119d99a482ce584dabbf0975ad1c4ac9dad99973f16d1&=&format=webp&quality=lossless');
+      background-size: contain;
+      background-repeat: no-repeat;
+      border: none;
+      color: #ffe4e1; /* Color del texto dentro del corazón */
+      font-size: 1.5rem;
+      cursor: pointer;
+      width: 90px; /* Ajusté un poco el tamaño */
+      height: 80px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      transition: transform 0.3s;
+      padding: 0;
+      background-color: #ffe4e1; /* Color rosa pastel del fondo del escenario 1 */
+    }
+
+    .heart-button:hover {
+      transform: scale(1.1);
+    }
+
+    .fecha-inicio {
+      color: #880e4f; /* Rosado oscuro */
+      font-size: 1rem;
+      margin-top: 5px;
+    }
+
+    .imagen-izquierda {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 30%;
+      object-fit: cover;
+    }
+
+    .imagen-derecha {
+      position: absolute;
+      right: 0;
+      top: 0;
+      height: 100%;
+      width: 30%;
+      object-fit: cover;
+    }
+
+    .escenario2 {
+      background: linear-gradient(to top right, #fff0f5, #ffe4e1);
+      display: none;
+      position: relative;
+    }
+
+    .galeria-imagenes {
+      position: absolute;
+      top: 20px;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      padding: 10px;
+    }
+
+    .galeria-imagenes img {
+  width: 220px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #943141, 0 0 20px #ff99cc, 0 0 40px #ff99cc; /* Efecto de neón rosa pastel */
+  border: 3px solid #943141; /* Borde rosa pastel */
+}
+
+    .texto-izquierda {
+      position: absolute;
+      top: 50%;
+      left: 3%;
+      transform: translateY(-50%);
+      width: 45%;
+      color: #4b2e2e;
+      font-size: 1.5rem;
+      line-height: 2;
+      white-space: pre-line;
+    }
+
+    .arbol {
+      position: absolute;
+      bottom: 0;
+      right: 30px;
+      width: 500px;
+      height: 600px;
+      background-image: url('https://media.discordapp.net/attachments/1059391734649462815/1368673909741977680/corazon_1.png?ex=68191468&is=6817c2e8&hm=abe82aacf3d1828280ffa1a2560dbbfdedcba8abf9e29fd9bebf1ac1d4725c79&=&format=webp&quality=lossless');
+      background-size: contain;
+      background-repeat: no-repeat;
+      animation: balancear 4s ease-in-out infinite;
+    }
+
+    @keyframes balancear {
+      0% { transform: rotate(-1deg); }
+      50% { transform: rotate(1deg); }
+      100% { transform: rotate(-1deg); }
+    }
+
+    .hojas {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .hoja {
+      position: absolute;
+      width: 25px;
+      height: 25px;
+      background-image: url('https://media.discordapp.net/attachments/1059391734649462815/1368676787827245238/hoja_1.png?ex=68191717&is=6817c597&hm=285319f8340dc6af57b8f409d716adc7a7f91791a3903d90b9ea0281eb352816&=&format=webp&quality=lossless');
+      background-size: cover;
+      background-repeat: no-repeat;
+      animation: caer 5s linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes caer {
+      0% { transform: translateY(0) rotate(0); opacity: 1; }
+      100% { transform: translateY(500px) rotate(360deg); opacity: 0; }
+    }
+
+    .contador {
+      position: absolute;
+      bottom: 25px;
+      left: 20px;
+      font-size: 1.5rem;
+      color: #4b2e2e;
+    }
+
+    .contador span {
+      color: #f8bbd0;
+      font-weight: bold;
+    }
+
+    audio {
+      display: none; /* O puedes hacerlo visible si quieres controles */
+    }
+  </style>
+ </head>
+ <body>
+  <div class="escenario1" id="escenario1">
+    <img src="https://media.discordapp.net/attachments/1059391734649462815/1368700942098108571/IMG_7838.jpg?ex=68192d95&is=6817dc15&hm=63ee0277ab6481932f21bc363160546238e03d6f5d7ffb76e1720d768598250c&=&format=webp&width=584&height=968" class="imagen-izquierda" alt="Imagen izquierda">
+
+    <h1>Para mi vida</h1>
+    <div class="heart-button-container">
+      <button class="heart-button" onclick="mostrarEscenario2()"></button>
+      <span></span>
+    </div>
+    <div class="fecha-inicio">15/08/23</div>
+
+    <img src="https://media.discordapp.net/attachments/1059391734649462815/1368681487641219226/A7B4575A-6D71-40F8-9F97-3187D8E7C216.jpg?ex=68191b77&is=6817c9f7&hm=86446cf48a3f472151e36dfb342565865ff186b40b1896817cec492bb4e7ea94&=&format=webp&width=486&height=864" class="imagen-derecha" alt="Imagen derecha">
+  </div>
+
+  <div class="escenario2" id="escenario2">
+    <audio id="miCancion" src="https://cdn.discordapp.com/attachments/1059391734649462815/1368710333807591464/cancion_entrada.mp4?ex=68193654&is=6817e4d4&hm=474ef526adb3448471f59324ade3e910c47eae7253d0fc102f9763cb70df263d&" preload="auto"></audio>
+    <div class="galeria-imagenes">
+      <img src="https://media.discordapp.net/attachments/1059391734649462815/1368681486089326732/319456c4-4039-43e8-a464-6a9995620d22.jpg?ex=68191b77&is=6817c9f7&hm=8ae594b0ce96e681c0fb812572d8bb367b75e886c06c095656c775297a0f4919&=&format=webp&width=580&height=864" alt="Imagen 1">
+      <img src="https://media.discordapp.net/attachments/1059391734649462815/1368681488014639315/8adaa78d-31cd-4248-81a8-3ad2edd856e5.jpg?ex=68191b77&is=6817c9f7&hm=642aeccc43800faf321cb56743201b679e60acf8bb6428a22d8f1a4d1c336090&=&format=webp&width=1152&height=864" alt="Imagen 2">
+      <img src="https://media.discordapp.net/attachments/1059391734649462815/1368682586699726899/IMG_8066.png?ex=68191c7d&is=6817cafd&hm=eef2dee0d16022d6150708df75bffee7dc8eef61c40dc578b0be10ac4ff3cf2b&=&format=webp&quality=lossless" alt="Imagen 3">
+    </div>
+
+    <div class="texto-izquierda" id="textoIzquierda"></div>
+
+    <div class="arbol"></div>
+
+    <div class="hojas" id="contenedorHojas"></div>
+
+    <div class="contador" id="contador"></div>
+  </div>
+
+  <script>
+    let audioReproduciendose = false;
+
+    function mostrarEscenario2() {
+      document.getElementById("escenario1").style.display = "none";
+      document.getElementById("escenario2").style.display = "flex";
+      escribirTextoCompleto();
+      reproducirCancion(); // Llamamos a la función para reproducir la canción
+    }
+
+    const inicio = new Date("2023-08-15T00:00:00"); // Fecha de inicio de la relación
+
+    function actualizarContador() {
+      const ahora = new Date();
+      const diferencia = ahora - inicio;
+      const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+      const horas = Math.floor((diferencia / (1000 * 60 * 60)) % 24);
+      const minutos = Math.floor((diferencia / (1000 * 60)) % 60);
+      const segundos = Math.floor((diferencia / 1000) % 60);
+
+      document.getElementById("contador").innerHTML =
+        `Mi amor hacia ti comenzó hace: <span>${dias}</span> días, <span>${horas}</span> horas, <span>${minutos}</span> minutos, <span>${segundos}</span> segundos`;
+    }
+
+    setInterval(actualizarContador, 1000);
+
+    const textoCompleto = `Para el amor de mi vida:
+
+ Si pudiera elegir un lugar seguro, sería a tu lado.
+ Cuanto más tiempo estoy contigo más te amo.
+ Sinceramente el amor que te tengo es indescriptible
+ Nuca habia sentido algo tan lindo por una persona
+ Quiero seguir compartiendo momentos lindos contigo
+ Eres y seras la felicidad en mi vida
+ Siempre estarás en mi corazón
+ Puedes contar conmigo y tendras a alguien que te escuche y te ayude en tus problemas
+ Y sobre todo las cosas siempre seras mi niña...
+
+ De: Enri :)
+  -Te amo muchisimo!`;
+
+    function escribirTextoCompleto() {
+      const contenedor = document.getElementById("textoIzquierda");
+      let index = 0;
+      function escribir() {
+        if (index < textoCompleto.length) {
+          contenedor.innerHTML += textoCompleto.charAt(index);
+          index++;
+          setTimeout(escribir, 50);
+        }
+      }
+      escribir();
+    }
+
+    function crearHojas() {
+      const contenedor = document.getElementById("contenedorHojas");
+      for (let i = 0; i < 20; i++) {
+        const hoja = document.createElement("div");
+        hoja.classList.add("hoja");
+        const desdeIzquierda = Math.random() < 0.5;
+        hoja.style.left = desdeIzquierda
+          ? `${Math.random() * 30}px`
+          : `${window.innerWidth - 30 - Math.random() * 30}px`;
+        hoja.style.animationDuration = `${4 + Math.random() * 3}s`;
+        hoja.style.top = `${Math.random() * -200}px`;
+        contenedor.appendChild(hoja);
+      }
+    }
+
+    function reproducirCancion() {
+      const audio = document.getElementById("miCancion");
+      audio.play().catch(error => {
+        console.error("Error al intentar reproducir el audio:", error);
+        // Puedes agregar aquí alguna acción en caso de que la reproducción automática falle
+      });
+      audioReproduciendose = true;
+    }
+
+    crearHojas();
+    actualizarContador();
+  </script>
+ </body>
+ </html>
